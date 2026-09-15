@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
@@ -17,15 +16,22 @@ class ProfileController extends Controller
 
     public function update(ProfileRequest $request)
     {
+        
         /**
          * @var User $user
          */
         $user = auth()->user();
 
-        $user->fill($request->validated())->save();
+        $data = $request->validated();
 
-        return back()->with('Perfil atualizado com sucesso');
-    
+        if ($file = $request->file('photo')) {
+            $data['photo'] = $file->store('photos', 'public');
+        }
+
+        $user->fill($data)->save();
+
+        return back()->with('message', 'Perfil atualizado com sucesso');
+
     }
 
 }
