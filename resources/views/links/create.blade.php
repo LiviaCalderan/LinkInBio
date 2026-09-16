@@ -1,38 +1,40 @@
-<div>
+<x-layout.app>
+    <div>
 
-    <h1>Adicionar Link</h1>
+        <h1>Adicionar Link</h1>
 
-    @if ($message = session()->get('message'))
-        <div>{{ $message }}</div>
+        @if ($message = session()->get('message'))
+            <div>{{ $message }}</div>
 
-    @endif
+        @endif
 
-    <form action="{{ route('links.create') }}" method="POST">
+        <form action="{{ route('links.create') }}" method="POST">
 
-        @csrf
-        <div>
-            <input type="url" name="link" placeholder="Insira o link" value="{{ old('link') }}" />
+            @csrf
+            <div>
+                <input type="url" name="link" placeholder="Insira o link" value="{{ old('link') }}" />
 
-            @error('link')
-                <span>{{ $message }}</span>
-            @enderror
+                @error('link')
+                    <span>{{ $message }}</span>
+                @enderror
 
-        </div>
+            </div>
 
-        <br>
+            <br>
 
-        <div>
-            <input type="text" name="name" placeholder="Digite seu nome" value="{{ old('name') }}" />
+            <div>
+                <input type="text" name="name" placeholder="Digite seu nome" value="{{ old('name') }}" />
 
-            @error('name')
-                <span>{{ $message }}</span>
-            @enderror
-        </div>
+                @error('name')
+                    <span>{{ $message }}</span>
+                @enderror
+            </div>
 
-        <br>
-        <a href="{{ route('dashboard') }}">Voltar</a>
+            <br>
+            <a href="{{ route('dashboard') }}">Voltar</a>
 
-        <button>Salvar</button>
+            <button>Salvar</button>
 
-    </form>
-</div>
+        </form>
+    </div>
+</x-layout.app>

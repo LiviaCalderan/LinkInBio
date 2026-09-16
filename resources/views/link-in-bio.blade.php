@@ -1,15 +1,17 @@
-<div>
-    <img src="/storage/{{ $user->photo  }}" alt="User Profile Picture">
-    <h2>User: {{ $user->name }} :: {{ $user->id }}</h2>
-    <h3>{{ $user->description }}</h3>
+<x-layout.app>
+    <div>
+        <img src="/storage/{{ $user->photo  }}" alt="User Profile Picture">
+        <h2>User: {{ $user->name }} :: {{ $user->id }}</h2>
+        <h3>{{ $user->description }}</h3>
 
-    <ul>
-        @foreach ($user->links as $link)
-            <li>
+        <ul>
+            @foreach ($user->links as $link)
+                <li>
 
-                <a href="{{ $link->link }}" target="_blank">{{ $link->name }} </a>
+                    <a href="{{ $link->link }}" target="_blank">{{ $link->name }} </a>
 
-            </li>
-        @endforeach
-    </ul>
-</div>
+                </li>
+            @endforeach
+        </ul>
+    </div>
+</x-layout.app>

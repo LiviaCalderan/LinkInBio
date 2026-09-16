@@ -1,40 +1,42 @@
-<div>
+<x-layout.app>
+    <div>
 
-    <h1>Editar Link :: {{ $link->name }}</h1>
+        <h1>Editar Link :: {{ $link->name }}</h1>
 
-    @if ($message = session()->get('message'))
-        <div>{{ $message }}</div>
+        @if ($message = session()->get('message'))
+            <div>{{ $message }}</div>
 
-    @endif
+        @endif
 
-    <form action="{{ route('links.edit', $link) }}" method="POST">
+        <form action="{{ route('links.edit', $link) }}" method="POST">
 
-        @csrf
-        @method('PUT')
-        <div>
-            <input type="url" name="link" placeholder="Insira o link" value="{{ old('link', $link->link) }}" />
+            @csrf
+            @method('PUT')
+            <div>
+                <input type="url" name="link" placeholder="Insira o link" value="{{ old('link', $link->link) }}" />
 
-            @error('link')
-                <span>{{ $message }}</span>
-            @enderror
+                @error('link')
+                    <span>{{ $message }}</span>
+                @enderror
 
-        </div>
+            </div>
 
-        <br>
+            <br>
 
-        <div>
-            <input type="text" name="name" placeholder="Digite seu nome" value="{{ old('name', $link->name) }}" />
+            <div>
+                <input type="text" name="name" placeholder="Digite seu nome" value="{{ old('name', $link->name) }}" />
 
-            @error('name')
-                <span>{{ $message }}</span>
-            @enderror
-        </div>
+                @error('name')
+                    <span>{{ $message }}</span>
+                @enderror
+            </div>
 
-        <br>
+            <br>
 
-        <a href="{{ route('dashboard') }}">Voltar</a>
+            <a href="{{ route('dashboard') }}">Voltar</a>
 
-        <button>Salvar</button>
+            <button>Salvar</button>
 
-    </form>
-</div>
+        </form>
+    </div>
+</x-layout.app>
