@@ -1,3 +1,3 @@
-<button {{ $attributes->class(['btn btn-primary font-medium']) }}>
+<button {{ $attributes->class(['btn font-medium']) }}>
     {{ $slot }}
 </button>

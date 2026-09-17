@@ -1,62 +1,80 @@
 <x-layout.app>
-    <div>
-        <h1>Dashboard</h1>
-        <h2>User: {{ auth()->user()->name }} :: {{ auth()->id() }}</h2>
+    <x-container>
+        <div class="absolute inset-x-0 top-5 flex items-center justify-between gap-25 px-6">
+            <x-links-btn :route="route('profile')" class="flex-1 justify-center btn-ghost">
+                Profile
+            </x-links-btn>
 
-        <a href="{{ route('profile') }}">Update Profile</a>
-
-        @if ($message = session()->get('message'))
-            <div>{{ $message }}</div>
-
-        @endif
-
-        <a href="{{ route('links.create') }}">Adicionar</a>
-
-        <ul>
-            @foreach ($links as $link)
-                <li style="display: flex; gap: 10px;">
-
-                    @if (!$loop->last)
-
-                        <form action="{{ route('links.down', $link) }}" method="post">
-
-                            @csrf
-                            @method('PATCH')
-
-                            <button>⬇️</button>
-
-                        </form>
-
-                    @endif
+            <x-links-btn :route="route('links.create')" class="flex-1 justify-center btn-ghost">
+                New Link
+            </x-links-btn>
+        </div>
+        <div class="text-center flex flex-col space-x-4 w-2/3 mt-4">
+            <x-img src="/storage/{{ $user->photo }}" alt="/Profile Picture" />
+            <div class="text-2xl font-bold justify-center m-3 text-primary tracking-wider">- {{ $user->name }} -</div>
+            <div class="text-sm italic opacity-80">{{ $user->description }}</div>
 
 
-                    @unless ($loop->first)
-                        <form action="{{ route('links.up', $link) }}" method="post">
+            <ul class="space-y-3 mt-6">
+                @foreach ($links as $link)
 
-                            @csrf
-                            @method('PATCH')
-
-                            <button>⬆️</button>
-
-                        </form>
-                    @endunless
+                    <li class="flex items-center gap-4 justify-center">
 
 
+                        @unless ($loop->first)
+                            <x-form :route="route('links.up', $link)" patch>
+
+                                <x-button class="rounded-full btn-ghost">
+                                    <x-icons.up-arrow class="w-6 h-6" />
+                                </x-button>
+
+                            </x-form>
+                        @else
+                            <x-button disabled="disabled" class="rounded-full btn-ghost btn-disabled">
+                                <x-icons.up-arrow class="w-6 h-6" />
+                            </x-button>
+
+                        @endunless
+
+                        @if (!$loop->last)
+
+                            <x-form :route="route('links.down', $link)" patch>
+
+                                <x-button class="rounded-full btn-ghost">
+                                    <x-icons.down-arrow class="w-6 h-6" />
+                                </x-button>
+
+                            </x-form>
+
+                        @else
+                            <x-button disabled="disabled" class="rounded-full btn-ghost btn-disabled">
+                                <x-icons.down-arrow class="w-6 h-6" />
+                            </x-button>
+
+                        @endif
 
 
-                    <a href="{{ route('links.edit', $link) }}">{{ $link->name }} </a>
 
-                    <form action="{{ route('links.destroy', $link) }}" method="post"
-                        onsubmit="return confirm('Tem certeza que deseja deletar este link?')">
+                        <x-links-btn :route="route('links.edit', $link)" class="w-full btn-outline">
+                            {{ $link->name }}
+                        </x-links-btn>
 
-                        @csrf
-                        @method('DELETE')
+                        <x-form :route="route('links.destroy', $link)" delete
+                            onsubmit="return confirm('Are you sure you want to delete this link?')">
 
-                        <button>Delete</button>
+                            <x-button class="rounded-full btn-ghost btn-error">
+                                <x-icons.trash class="w-6 h-6" />
+                            </x-button>
 
-                    </form>
-                </li>
-            @endforeach
-        </ul>
-    </div>
+                        </x-form>
+                    </li>
+
+                @endforeach
+            </ul>
+
+
+
+        </div>
+    </x-container>
+
 </x-layout.app>
