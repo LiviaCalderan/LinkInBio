@@ -8,7 +8,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="text-black">
+<body class="bg-slate-850">
     {{ $slot }}
 </body>
 

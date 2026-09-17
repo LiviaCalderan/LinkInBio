@@ -8,7 +8,7 @@
             
             <x-slot:actions>
                 <x-button type="submit" class="btn btn-wide btn-outline btn-primary" form="login-form">Login</x-button>
-                
+                <x-redirect message="Don't have an account? " route="register" href="Register"/>
             </x-slot:actions>
 
         </x-card>

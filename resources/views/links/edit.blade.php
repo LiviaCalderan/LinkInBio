@@ -1,42 +1,17 @@
 <x-layout.app>
-    <div>
+    <x-container>
+        <x-card title="Edit Link">
+            <x-form :route="route('links.edit', $link)" put id="edit-form">
+                <x-input name="link" type="url" placeholder="exemple.com" value="{{ old('link', $link->link) }}"/>
+                <x-input name="name" placeholder="Link name" value="{{ old('name', $link->name) }}"/>
+            </x-form>
+            
+            <x-slot:actions>
+                <x-button type="submit" class="btn btn-wide btn-outline btn-primary" form="edit-form">Save Link</x-button>
+                <x-redirect :route="route('dashboard')" href="Cancel"/>
+            </x-slot:actions>
 
-        <h1>Editar Link :: {{ $link->name }}</h1>
+        </x-card>
+    </x-container>
 
-        @if ($message = session()->get('message'))
-            <div>{{ $message }}</div>
-
-        @endif
-
-        <form action="{{ route('links.edit', $link) }}" method="POST">
-
-            @csrf
-            @method('PUT')
-            <div>
-                <input type="url" name="link" placeholder="Insira o link" value="{{ old('link', $link->link) }}" />
-
-                @error('link')
-                    <span>{{ $message }}</span>
-                @enderror
-
-            </div>
-
-            <br>
-
-            <div>
-                <input type="text" name="name" placeholder="Digite seu nome" value="{{ old('name', $link->name) }}" />
-
-                @error('name')
-                    <span>{{ $message }}</span>
-                @enderror
-            </div>
-
-            <br>
-
-            <a href="{{ route('dashboard') }}">Voltar</a>
-
-            <button>Salvar</button>
-
-        </form>
-    </div>
 </x-layout.app>
