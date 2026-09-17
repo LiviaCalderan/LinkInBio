@@ -1,58 +1,29 @@
 <x-layout.app>
-    <div>
-        <h1>Profile</h1>
+    <x-container>
+        <x-card title="Profile">
+            <x-form :route="route('profile')" put id="update-form" enctype="multipart/form-data">
+                <div class="flex flex-col items-center gap-6">
+                    <div class="avatar">
+                        <img src="storage/{{ $user->photo }}" alt="Profile Picture"
+                            class="mask ring-primary ring-offset-base-100 w-35 rounded-full ring-2 ring-offset-2">
+                    </div>
 
-        @if ($message = session()->get('message'))
-            <div>{{ $message }}</div>
-            <br>
+                    <x-file-input name="photo"/>
+                    
+                </div>
+                <x-input name="name" placeholder="Name" value="{{ old('name', $user->name) }}" />
+                <x-textarea name="description" placeholder="About you..." value="{{ old('description', $user->description) }}"/>
+                
+                <x-input name="handler" prefix="linkinbio.com.br/" placeholder="@seuLink" value="{{ old('handler', $user->handler) }}" />
 
-        @endif
+            </x-form>
 
-        <form action="{{ route('profile') }}" method="POST" enctype="multipart/form-data">
+            <x-slot:actions>
+                <x-button type="submit" class="btn btn-wide btn-outline btn-primary" form="update-form">Update</x-button>
+                <x-redirect :route="route('dashboard')" href="Cancel" />
+            </x-slot:actions>
 
-            @csrf
-            @method('put')
+        </x-card>
+    </x-container>
 
-            <div>
-                <img src="storage/{{ $user->photo }}" alt="Profile Picture">
-                <input type="file" name="photo" />
-            </div>
-
-            <div>
-                <input name="name" placeholder="Name" value="{{ old('name', $user->name) }}" />
-
-                @error('name')
-                    <span>{{ $message }}</span>
-                @enderror
-            </div>
-
-            <br>
-
-            <div>
-                <textarea name="description" placeholder="Write about you..."
-                    value="">{{ old('description', $user->description) }}</textarea>
-
-                @error('description')
-                    <span>{{ $message }}</span>
-                @enderror
-            </div>
-
-            <br>
-
-            <div>
-                <span>linkinbio.com.br/</span>
-                <input name="handler" placeholder="@seulink" value="{{ old('handler', $user->handler) }}" />
-
-                @error('handler')
-                    <span>{{ $message }}</span>
-                @enderror
-            </div>
-
-            <br>
-            <a href="{{ route('dashboard') }}">Cancelar</a>
-
-            <button>Update</button>
-
-        </form>
-    </div>
 </x-layout.app>

@@ -1,0 +1,1 @@
+<input type="file" {{ $attributes }} class="file-input file-input-primary mb-4 mt-2" />
