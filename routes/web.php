@@ -11,8 +11,6 @@ use Illuminate\Auth\Events\Logout;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 
-Route::get('/', WelcomeController::class);
-
 // Essa rota só pode ser acessada por alguém que NÃO está autenticado.
 Route::middleware('guest')->group(function () {
 
@@ -27,7 +25,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     // Controller com método invoke, então não precisa especificar o método, só a classe.
     Route::get('/logout', LogoutController::class)->name('logout');
-    Route::get('dashboard', DashboardController::class)->name('dashboard');
+    Route::get('/', DashboardController::class)->name('dashboard');
     Route::get('/links/create', [LinkController::class, 'create'])->name('links.create');
     Route::post('/links/create', [LinkController::class, 'store']);
 

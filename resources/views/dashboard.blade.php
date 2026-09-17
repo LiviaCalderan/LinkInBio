@@ -8,6 +8,10 @@
             <x-links-btn :route="route('links.create')" class="flex-1 justify-center btn-ghost">
                 New Link
             </x-links-btn>
+
+            <x-links-btn :route="route('logout')" class="flex-1 justify-center btn-ghost">
+                Logout
+            </x-links-btn>
         </div>
         <div class="text-center flex flex-col space-x-4 w-2/3 mt-4">
             <x-img src="/storage/{{ $user->photo }}" alt="/Profile Picture" />
